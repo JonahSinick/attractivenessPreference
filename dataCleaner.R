@@ -3,6 +3,8 @@ setwd("~/Desktop/attrPreference")
 library(dplyr)
 library(lme4)
 library(dummies)
+library(caret)
+library(glmnet)
 df = read.csv("Speed Dating Data.csv")
 df = select(df, -starts_with("pf"),-ends_with("_s"),-ends_with("_2"), -ends_with("_3"))
 
@@ -66,8 +68,6 @@ adf0 = as.data.frame(round(100*cor(gens,gens$attrRevPref)))
 gens = agged[agged$gender == 1,sapply(agged, is.numeric)]
 adf1 = as.data.frame(round(100*cor(gens,gens$attrRevPref)))
 cbind(adf0, adf1)
-library(caret)
-library(glmnet)
 
 
 l = lapply(0:1, function(gen){
